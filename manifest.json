@@ -1,0 +1,17 @@
+{
+  "name": "Eureka Super",
+  "short_name": "Eureka",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f8fb",
+  "theme_color": "#0c2036",
+  "description": "Capture ideas fast with a local-first, offline-friendly flow.",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

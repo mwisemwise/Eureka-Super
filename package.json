@@ -1,0 +1,9 @@
+{
+  "name": "eureka-super",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Capture-first, local-first idea app",
+  "scripts": {
+    "serve": "python3 -m http.server 4173"
+  }
+}

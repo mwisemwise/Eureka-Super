@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eureka Super</title>
+  <meta name="description" content="Capture ideas fast, find them later, stay local-first." />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#0c2036" />
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./src/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Eureka Super</div>
+    <nav class="nav" aria-label="Primary">
+      <button data-nav="capture" class="nav-btn is-active" type="button">Capture</button>
+      <button data-nav="ideas" class="nav-btn" type="button">Ideas</button>
+      <button data-nav="help" class="nav-btn" type="button">Help</button>
+      <button data-nav="settings" class="nav-btn" type="button">Settings</button>
+      <button data-nav="stats" id="statsNav" class="nav-btn is-advanced" type="button" hidden>Stats</button>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section id="page-capture" class="page is-active" aria-label="Capture">
+      <h1>Capture Fast</h1>
+      <p class="subtle">Low friction. Title optional. Save and move on.</p>
+      <label class="label" for="ideaTitleInput">Title (optional, max 40)</label>
+      <input id="ideaTitleInput" class="field" type="text" maxlength="40" placeholder="Idea title" />
+      <div id="titleError" class="error" hidden></div>
+      <label class="label" for="ideaContentInput">Idea</label>
+      <textarea id="ideaContentInput" class="field field-text" rows="8" placeholder="Capture the spark..."></textarea>
+      <div class="actions">
+        <button id="saveIdeaBtn" class="btn btn-primary" type="button">Save Idea</button>
+        <button id="goIdeasBtn" class="btn" type="button">View Ideas</button>
+      </div>
+      <div id="captureStatus" class="status" aria-live="polite"></div>
+    </section>
+
+    <section id="page-ideas" class="page" aria-label="Ideas">
+      <h1>Your Ideas</h1>
+      <div class="controls">
+        <input id="searchInput" class="field" type="search" placeholder="Search ideas" aria-label="Search ideas" />
+        <select id="sortSelect" class="field" aria-label="Sort ideas">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title-asc">Title A-Z</option>
+          <option value="title-desc">Title Z-A</option>
+        </select>
+      </div>
+      <ul id="ideasList" class="ideas-list"></ul>
+      <div id="ideasEmpty" class="empty">No ideas yet. Capture one.</div>
+    </section>
+
+    <section id="page-help" class="page" aria-label="Help and onboarding">
+      <h1>How To Use Eureka</h1>
+      <ol>
+        <li>Open Capture.</li>
+        <li>Add optional title and your idea text.</li>
+        <li>Save immediately. Refine later in Ideas.</li>
+        <li>Use search to rediscover old ideas quickly.</li>
+        <li>Use encrypted export in Settings for backups.</li>
+      </ol>
+      <p class="subtle">Tip: Keep titles short and meaningful for faster retrieval.</p>
+    </section>
+
+    <section id="page-settings" class="page" aria-label="Settings">
+      <h1>Settings</h1>
+      <label class="toggle-row" for="advancedToggle">
+        <input id="advancedToggle" type="checkbox" />
+        <span>Enable advanced views (Stats)</span>
+      </label>
+      <div class="actions">
+        <button id="exportBtn" class="btn btn-primary" type="button">Export Ideas</button>
+      </div>
+      <p class="subtle">Export prompt: leave blank for plain JSON, add passphrase for encrypted export.</p>
+      <div id="settingsStatus" class="status" aria-live="polite"></div>
+    </section>
+
+    <section id="page-stats" class="page" aria-label="Stats">
+      <h1>Stats</h1>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-label">Total</div><div id="statTotal" class="stat-value">0</div></article>
+        <article class="stat-card"><div class="stat-label">With Title</div><div id="statWithTitle" class="stat-value">0</div></article>
+        <article class="stat-card"><div class="stat-label">Recent (7d)</div><div id="statRecent" class="stat-value">0</div></article>
+      </div>
+      <p class="subtle">Stats are optional and hidden by default to keep capture-first flow clean.</p>
+    </section>
+  </main>
+
+  <script type="module" src="./src/js/app.js"></script>
+</body>
+</html>
