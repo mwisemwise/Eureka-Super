@@ -1,94 +1,300 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eureka is a calm, local-first idea capture app built for fast capture and fast resurfacing.">
   <title>Eureka Super</title>
-  <meta name="description" content="Capture ideas fast, find them later, stay local-first." />
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#0c2036" />
-  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="./src/css/styles.css" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="docs/screenshots/capture-placeholder.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="src/styles/app.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">Eureka Super</div>
-    <nav class="nav" aria-label="Primary">
-      <button data-nav="capture" class="nav-btn is-active" type="button">Capture</button>
-      <button data-nav="ideas" class="nav-btn" type="button">Ideas</button>
-      <button data-nav="help" class="nav-btn" type="button">Help</button>
-      <button data-nav="settings" class="nav-btn" type="button">Settings</button>
-      <button data-nav="stats" id="statsNav" class="nav-btn is-advanced" type="button" hidden>Stats</button>
-    </nav>
-  </header>
-
-  <main class="shell">
-    <section id="page-capture" class="page is-active" aria-label="Capture">
-      <h1>Capture Fast</h1>
-      <p class="subtle">Low friction. Title optional. Save and move on.</p>
-      <label class="label" for="ideaTitleInput">Title (optional, max 40)</label>
-      <input id="ideaTitleInput" class="field" type="text" maxlength="40" placeholder="Idea title" />
-      <div id="titleError" class="error" hidden></div>
-      <label class="label" for="ideaContentInput">Idea</label>
-      <textarea id="ideaContentInput" class="field field-text" rows="8" placeholder="Capture the spark..."></textarea>
-      <div class="actions">
-        <button id="saveIdeaBtn" class="btn btn-primary" type="button">Save Idea</button>
-        <button id="goIdeasBtn" class="btn" type="button">View Ideas</button>
+  <main class="app-shell">
+    <section id="authPage" class="page auth-page hidden" aria-labelledby="authTitle">
+      <div class="auth-card">
+        <p class="eyebrow">Protected Session</p>
+        <h1 id="authTitle">Unlock Eureka</h1>
+        <p id="authMessage" class="page-copy">Enter your PIN to continue.</p>
+        <label class="field">
+          <span class="field-label">PIN</span>
+          <input id="pinInput" class="text-input pin-input" type="password" inputmode="numeric" maxlength="6" autocomplete="current-password" placeholder="4 to 6 digits">
+        </label>
+        <p id="pinError" class="inline-error hidden" role="alert"></p>
+        <div class="form-actions">
+          <button id="pinSubmitBtn" class="primary-btn" type="button">Unlock</button>
+          <button id="pinCancelBtn" class="ghost-btn" type="button">Cancel</button>
+        </div>
       </div>
-      <div id="captureStatus" class="status" aria-live="polite"></div>
     </section>
 
-    <section id="page-ideas" class="page" aria-label="Ideas">
-      <h1>Your Ideas</h1>
-      <div class="controls">
-        <input id="searchInput" class="field" type="search" placeholder="Search ideas" aria-label="Search ideas" />
-        <select id="sortSelect" class="field" aria-label="Sort ideas">
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="title-asc">Title A-Z</option>
-          <option value="title-desc">Title Z-A</option>
-        </select>
+    <section id="frontPage" class="page front-page" aria-labelledby="brandTitle">
+      <div class="hero">
+        <p class="eyebrow">Capture First</p>
+        <h1 id="brandTitle" class="brand-title">Eureka</h1>
+        <p class="brand-tagline">Catch the idea before it drifts.</p>
+        <p id="frontSummary" class="page-copy">One tap to capture. Search and resurface later.</p>
       </div>
-      <ul id="ideasList" class="ideas-list"></ul>
-      <div id="ideasEmpty" class="empty">No ideas yet. Capture one.</div>
+
+      <button id="captureBtn" class="capture-btn" type="button">Capture Idea</button>
+
+      <aside id="onboardingCard" class="onboarding-card hidden" aria-labelledby="onboardingTitle">
+        <div>
+          <p class="eyebrow">New Here</p>
+          <h2 id="onboardingTitle">Start in under 10 seconds</h2>
+        </div>
+        <ol class="onboarding-list">
+          <li>Tap capture and write the idea before you refine it.</li>
+          <li>Add a short title only if it helps future search.</li>
+          <li>Use Ideas when you want to sort, search, export, or review momentum.</li>
+        </ol>
+        <div class="inline-actions">
+          <button id="dismissOnboardingBtn" class="ghost-btn" type="button">Hide tips</button>
+          <button id="openHelpFromOnboardingBtn" class="ghost-btn" type="button">Open help</button>
+        </div>
+      </aside>
+
+      <details class="menu-card">
+        <summary class="menu-trigger">More</summary>
+        <div class="menu-list">
+          <button id="viewIdeasBtn" class="menu-item" type="button">Ideas</button>
+          <button id="statsBtn" class="menu-item" type="button">Stats</button>
+          <button id="settingsBtn" class="menu-item" type="button">Settings</button>
+          <button id="helpBtn" class="menu-item" type="button">Help</button>
+        </div>
+      </details>
     </section>
 
-    <section id="page-help" class="page" aria-label="Help and onboarding">
-      <h1>How To Use Eureka</h1>
-      <ol>
-        <li>Open Capture.</li>
-        <li>Add optional title and your idea text.</li>
-        <li>Save immediately. Refine later in Ideas.</li>
-        <li>Use search to rediscover old ideas quickly.</li>
-        <li>Use encrypted export in Settings for backups.</li>
-      </ol>
-      <p class="subtle">Tip: Keep titles short and meaningful for faster retrieval.</p>
+    <section id="capturePage" class="page hidden" aria-labelledby="captureTitle">
+      <header class="page-header">
+        <button class="back-btn" id="backFromCapture" type="button">Back</button>
+        <div>
+          <p class="eyebrow">Capture</p>
+          <h2 id="captureTitle">New Idea</h2>
+        </div>
+      </header>
+
+      <div class="page-panel">
+        <label class="field">
+          <span class="field-label">Title</span>
+          <input id="ideaTitle" class="text-input" type="text" maxlength="40" placeholder="Optional, up to 40 characters">
+        </label>
+        <p id="titleError" class="inline-error hidden" role="alert"></p>
+
+        <label class="field">
+          <span class="field-label">Category</span>
+          <input id="ideaCategory" class="text-input" type="text" maxlength="30" placeholder="Optional">
+        </label>
+
+        <label class="field">
+          <span class="field-label">Idea</span>
+          <textarea id="ideaInput" class="idea-input" rows="8" placeholder="What is the spark?"></textarea>
+        </label>
+
+        <div class="tool-row" aria-label="Capture tools">
+          <button id="dictateBtn" class="secondary-btn" type="button">Talk-to-Text</button>
+          <button id="recordBtn" class="secondary-btn" type="button">Record Audio</button>
+        </div>
+
+        <p id="captureStatus" class="helper-text" aria-live="polite">Cmd/Ctrl + Enter saves quickly.</p>
+        <audio id="audioPreview" class="audio-preview hidden" controls></audio>
+
+        <div class="form-actions">
+          <button id="saveIdeaBtn" class="primary-btn" type="button">Save Idea</button>
+          <button id="cancelCaptureBtn" class="ghost-btn" type="button">Cancel</button>
+        </div>
+      </div>
     </section>
 
-    <section id="page-settings" class="page" aria-label="Settings">
-      <h1>Settings</h1>
-      <label class="toggle-row" for="advancedToggle">
-        <input id="advancedToggle" type="checkbox" />
-        <span>Enable advanced views (Stats)</span>
-      </label>
-      <div class="actions">
-        <button id="exportBtn" class="btn btn-primary" type="button">Export Ideas</button>
+    <section id="ideasPage" class="page hidden" aria-labelledby="ideasTitle">
+      <header class="page-header">
+        <button class="back-btn" id="backFromIdeas" type="button">Back</button>
+        <div>
+          <p class="eyebrow">Library</p>
+          <h2 id="ideasTitle">Your Ideas</h2>
+        </div>
+      </header>
+
+      <div class="page-panel">
+        <div class="toolbar-grid">
+          <label class="field">
+            <span class="field-label">Search</span>
+            <input id="searchInput" class="text-input" type="search" placeholder="Search title, category, or content">
+          </label>
+          <label class="field">
+            <span class="field-label">Sort</span>
+            <select id="sortSelect" class="text-input">
+              <option value="date-desc">Newest first</option>
+              <option value="date-asc">Oldest first</option>
+              <option value="title-asc">Title A-Z</option>
+              <option value="title-desc">Title Z-A</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="ideas-meta">
+          <p id="ideasCount" class="helper-text"></p>
+          <div class="inline-actions">
+            <button id="openStatsFromIdeasBtn" class="ghost-btn" type="button">Stats</button>
+            <button id="openExportBtn" class="secondary-btn" type="button">Encrypted Export</button>
+          </div>
+        </div>
+
+        <div id="ideasList" class="ideas-list"></div>
       </div>
-      <p class="subtle">Export prompt: leave blank for plain JSON, add passphrase for encrypted export.</p>
-      <div id="settingsStatus" class="status" aria-live="polite"></div>
     </section>
 
-    <section id="page-stats" class="page" aria-label="Stats">
-      <h1>Stats</h1>
-      <div class="stats-grid">
-        <article class="stat-card"><div class="stat-label">Total</div><div id="statTotal" class="stat-value">0</div></article>
-        <article class="stat-card"><div class="stat-label">With Title</div><div id="statWithTitle" class="stat-value">0</div></article>
-        <article class="stat-card"><div class="stat-label">Recent (7d)</div><div id="statRecent" class="stat-value">0</div></article>
+    <section id="statsPage" class="page hidden" aria-labelledby="statsTitle">
+      <header class="page-header">
+        <button class="back-btn" id="backFromStats" type="button">Back</button>
+        <div>
+          <p class="eyebrow">Optional View</p>
+          <h2 id="statsTitle">Creative Momentum</h2>
+        </div>
+      </header>
+
+      <div class="page-panel">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <p class="stat-label">Total Ideas</p>
+            <p id="statTotal" class="stat-value">0</p>
+          </article>
+          <article class="stat-card">
+            <p class="stat-label">This Week</p>
+            <p id="statWeek" class="stat-value">0</p>
+          </article>
+          <article class="stat-card">
+            <p class="stat-label">This Month</p>
+            <p id="statMonth" class="stat-value">0</p>
+          </article>
+          <article class="stat-card">
+            <p class="stat-label">With Audio</p>
+            <p id="statAudio" class="stat-value">0</p>
+          </article>
+        </div>
+        <p class="page-copy">Stats stay tucked away until you need them. The default experience remains capture-first.</p>
       </div>
-      <p class="subtle">Stats are optional and hidden by default to keep capture-first flow clean.</p>
+    </section>
+
+    <section id="settingsPage" class="page hidden" aria-labelledby="settingsTitle">
+      <header class="page-header">
+        <button class="back-btn" id="backFromSettings" type="button">Back</button>
+        <div>
+          <p class="eyebrow">Settings</p>
+          <h2 id="settingsTitle">Privacy and Preferences</h2>
+        </div>
+      </header>
+
+      <div class="page-panel stacked-panel">
+        <article class="settings-card">
+          <div>
+            <h3>PIN Protection</h3>
+            <p>Require a 4 to 6 digit PIN before viewing or saving protected ideas in a new session.</p>
+          </div>
+          <label class="switch-row">
+            <span>Enable PIN</span>
+            <input id="pinToggle" type="checkbox">
+          </label>
+        </article>
+
+        <article id="pinSetupSection" class="settings-card hidden">
+          <label class="field">
+            <span class="field-label">PIN</span>
+            <input id="newPinInput" class="text-input pin-input" type="password" inputmode="numeric" maxlength="6" autocomplete="new-password" placeholder="4 to 6 digits">
+          </label>
+          <div class="form-actions">
+            <button id="savePinBtn" class="primary-btn" type="button">Save PIN</button>
+            <button id="disablePinBtn" class="ghost-btn hidden" type="button">Disable PIN</button>
+          </div>
+        </article>
+
+        <article class="settings-card">
+          <h3>Local-First by Default</h3>
+          <p>Ideas stay on this device and are stored in encrypted local storage. Export is the only way data leaves the app.</p>
+        </article>
+
+        <p id="settingsStatus" class="helper-text" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="helpPage" class="page hidden" aria-labelledby="helpTitle">
+      <header class="page-header">
+        <button class="back-btn" id="backFromHelp" type="button">Back</button>
+        <div>
+          <p class="eyebrow">Help</p>
+          <h2 id="helpTitle">Quick Start and Onboarding</h2>
+        </div>
+      </header>
+
+      <div class="page-panel stacked-panel">
+        <article class="help-card">
+          <h3>Fastest Flow</h3>
+          <ol class="help-list">
+            <li>Open capture.</li>
+            <li>Write the thought in one pass.</li>
+            <li>Save now, refine later.</li>
+          </ol>
+        </article>
+
+        <article class="help-card">
+          <h3>What Ships Today</h3>
+          <ul class="help-list">
+            <li>Local encrypted storage.</li>
+            <li>Search across title, category, and content.</li>
+            <li>40-character titles with spaces allowed.</li>
+            <li>Optional stats and encrypted export.</li>
+            <li>Talk-to-text and audio note support when the browser allows it.</li>
+          </ul>
+        </article>
+
+        <article class="help-card">
+          <h3>Shortcuts</h3>
+          <ul class="help-list">
+            <li><kbd>Cmd</kbd>/<kbd>Ctrl</kbd> + <kbd>Enter</kbd> saves from capture.</li>
+            <li><kbd>N</kbd> opens capture from most screens.</li>
+            <li><kbd>/</kbd> focuses search on the Ideas page.</li>
+          </ul>
+        </article>
+
+        <article class="help-card">
+          <h3>Future Flagship: Resurface</h3>
+          <p>Resurface is planned as a future layer that quietly brings the right past idea back at the right time, instead of making you hunt for it.</p>
+        </article>
+      </div>
     </section>
   </main>
 
-  <script type="module" src="./src/js/app.js"></script>
+  <div id="exportModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">Encrypted Export</p>
+          <h2 id="exportTitle">Download a protected backup</h2>
+        </div>
+        <button id="closeExportBtn" class="icon-btn" type="button" aria-label="Close export dialog">×</button>
+      </div>
+      <label class="field">
+        <span class="field-label">Export passphrase</span>
+        <input id="exportPassphraseInput" class="text-input" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+      </label>
+      <p class="helper-text">This passphrase is not stored. You need it later to decrypt the export.</p>
+      <p id="exportError" class="inline-error hidden" role="alert"></p>
+      <div class="form-actions">
+        <button id="confirmExportBtn" class="primary-btn" type="button">Export Now</button>
+        <button id="cancelExportBtn" class="ghost-btn" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="celebrationOverlay" class="celebration-overlay hidden" aria-live="polite">
+    <div class="celebration-card">
+      <p class="eyebrow">Saved</p>
+      <p id="celebrationMessage" class="celebration-message">Idea captured.</p>
+    </div>
+  </div>
+
+  <div id="statusToast" class="status-toast hidden" aria-live="polite"></div>
+
+  <script type="module" src="src/js/app.js"></script>
 </body>
 </html>

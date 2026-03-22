@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#F4F0E8"/>
+  <rect x="140" y="90" width="1000" height="540" rx="36" fill="#FFFDF8" stroke="#D6CEBF"/>
+  <rect x="220" y="170" width="540" height="38" rx="19" fill="#1F7A6A" opacity="0.18"/>
+  <rect x="220" y="236" width="340" height="88" rx="28" fill="#1F7A6A"/>
+  <rect x="220" y="358" width="700" height="42" rx="18" fill="#EEE6D8"/>
+  <rect x="220" y="420" width="700" height="126" rx="24" fill="#EEE6D8"/>
+  <text x="220" y="145" fill="#1F2B24" font-family="Arial, sans-serif" font-size="34" font-weight="700">Capture Screen Placeholder</text>
+  <text x="220" y="290" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="34" font-weight="700">Capture Idea</text>
+  <text x="220" y="602" fill="#526154" font-family="Arial, sans-serif" font-size="24">Replace with an actual screenshot when the UI is finalized.</text>
+</svg>

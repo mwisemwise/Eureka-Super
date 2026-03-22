@@ -3,13 +3,13 @@
   "short_name": "Eureka",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f4f8fb",
-  "theme_color": "#0c2036",
-  "description": "Capture ideas fast with a local-first, offline-friendly flow.",
+  "background_color": "#f4f0e8",
+  "theme_color": "#1f7a6a",
+  "description": "A calm, local-first app for capturing and resurfacing ideas.",
   "icons": [
     {
-      "src": "./assets/icon.svg",
-      "sizes": "any",
+      "src": "docs/screenshots/capture-placeholder.svg",
+      "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     }

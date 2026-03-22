@@ -13,32 +13,44 @@ Eureka Super is a local-first idea capture app designed for fast, low-friction c
 - Search and sort in Ideas view
 - Optional Stats page (hidden by default)
 - Help/onboarding page
-- Plain or encrypted JSON export
+- Encrypted-at-rest local idea vault
+- Encrypted JSON export
+- Optional PIN re-lock for private sessions
 - Offline-first PWA support with service worker
 
 ## Local run
 1. Open this folder in a terminal.
-2. Run a static server:
-   - `python3 -m http.server 4173`
+2. Start the local server:
+   - `npm run dev`
 3. Open `http://localhost:4173`.
 
 ## Project structure
 - `index.html` app shell and pages
-- `src/css/styles.css` UI styling
+- `src/styles/app.css` UI styling
 - `src/js/app.js` app orchestration and events
-- `src/js/storage.js` local persistence
-- `src/js/crypto.js` encrypted export utilities
-- `src/js/utils.js` helpers
+- `src/js/storage.js` encrypted local vault persistence
+- `src/js/crypto.js` vault and export cryptography
+- `src/js/export.js` encrypted export flow
+- `scripts/dev-server.js` tiny local dev server
 - `manifest.json` PWA metadata
 - `service-worker.js` offline caching
 - `assets/` icons and static assets
+- `docs/agents/` role checklists for implementation, docs, compliance, and QA
+- `docs/screenshots/` screenshot placeholders
 
 ## Screenshot placeholders
-- `assets/screenshots/capture.png` (placeholder)
-- `assets/screenshots/ideas.png` (placeholder)
-- `assets/screenshots/settings.png` (placeholder)
+- `assets/screenshots/capture.png`
+- `assets/screenshots/ideas.png`
+- `assets/screenshots/settings.png`
+- `docs/screenshots/capture-placeholder.svg`
+- `docs/screenshots/ideas-placeholder.svg`
+- `docs/screenshots/stats-placeholder.svg`
 
 ## Roadmap summary
-- Now: stabilize merged capture + search + export
+- Now: stabilize merged capture + encrypted local vault + export
 - Next: polish editing/session workflows and import
 - Later: Resurface intelligence and scheduling
+
+## Team workflow
+- Major changes use a four-role workflow: implementation, docs steward, compliance, and QA/testing.
+- Role checklists live in `docs/agents/`.

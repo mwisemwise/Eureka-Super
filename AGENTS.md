@@ -41,6 +41,51 @@ Build one app that keeps eureka1's speed and simplicity while adding only the be
   - LICENSE
   - .gitignore
 
+## Agent structure
+Use these four agents for meaningful changes. Keep scopes separate and pass work forward with written notes.
+
+1. Implementation agent
+   - Owns code changes in `index.html`, `src/`, `scripts/`, and app behavior.
+   - Builds the smallest change that solves the product need.
+   - Must note any doc updates required before handing off.
+2. Docs steward agent
+   - Owns `README.md`, `PRODUCT.md`, `ARCHITECTURE.md`, `ROADMAP.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, and supporting docs under `docs/`.
+   - Updates docs in the same task as the code change.
+   - Measures docs against actual behavior, not planned behavior.
+3. Compliance agent
+   - Checks the implementation and docs against product rules, architecture rules, privacy rules, and contributor workflow rules.
+   - Flags drift between code and docs.
+   - Rejects changes that add clutter, break capture-first behavior, or overstate shipped functionality.
+4. QA and testing agent
+   - Owns verification.
+   - Runs the required checks, exercises changed flows, and reports regressions, gaps, and untested risk.
+   - Confirms docs describe the tested behavior accurately.
+
+## Agent order
+Use the agents in this order unless the task is docs-only or review-only:
+1. Implementation
+2. Docs steward
+3. Compliance
+4. QA and testing
+
+If a later agent finds a problem, send the task back to the owning earlier agent and repeat the later checks.
+
+## Agent handoff format
+Each agent should leave a short handoff with:
+- Scope completed
+- Files touched or reviewed
+- Decisions made
+- Risks or open questions
+- Next required owner
+
+## Agent guardrails
+- Do not let the docs steward invent features that are not in code.
+- Do not let the implementation agent skip doc updates when behavior changes.
+- Do not let the compliance agent become a second implementation owner.
+- Do not let the QA and testing agent sign off without naming what was actually tested.
+
+Detailed checklists for each role live in `docs/agents/`.
+
 ## README requirements
 - Explain what Eureka is
 - Explain who it is for
